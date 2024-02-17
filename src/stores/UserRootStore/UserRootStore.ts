@@ -1,19 +1,23 @@
 import RootStore from "../RootStore";
-import type { Stores } from "../RootStore";
-
 import AccountStore from "./AccountStore";
 import FriendsStore from "./FriendsStore";
 
-const stores: Stores = {
-  AccountStore: AccountStore,
-  FriendsStore: FriendsStore,
-};
+const stores = [AccountStore, FriendsStore];
+type UserStores = (typeof stores)[number];
 
-class UserRootStore extends RootStore {
+class UserRootStore extends RootStore<UserStores> {
   public name: string;
   constructor() {
     super(stores);
     this.name = "UserRootStore";
+  }
+
+  public getAccountStore() {
+    return super.getStore<AccountStore, void>(AccountStore);
+  }
+
+  public getFriendsStore() {
+    return super.getStore<FriendsStore, void>(FriendsStore);
   }
 }
 

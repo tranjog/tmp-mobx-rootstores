@@ -7,7 +7,7 @@ class AccountStore {
   }
 
   public accessAppleStore() {
-    return FruitRootStore.getStore("AppleStore").getAccessedFrom(this.name);
+    return FruitRootStore.getAppleStore().getAccessedFrom(this.name);
   }
 }
 

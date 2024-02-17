@@ -1,19 +1,24 @@
 import RootStore from "../RootStore";
-import type { Stores } from "../RootStore";
 
-import AppleStore from "./AppleStore";
+import AppleStore, { Color } from "./AppleStore";
 import OrangeStore from "./OrangeStore";
 
-const stores: Stores = {
-  AppleStore: AppleStore,
-  OrangeStore: OrangeStore,
-};
+const stores = [AppleStore, OrangeStore];
+type FruitStores = (typeof stores)[number];
 
-class FruitRootStore extends RootStore {
+class FruitRootStore extends RootStore<FruitStores> {
   public name: string;
   constructor() {
     super(stores);
     this.name = "FruitRootStore";
+  }
+
+  public getAppleStore() {
+    return super.getStore<AppleStore, Color>(AppleStore, "blue");
+  }
+
+  public getOrangeStore() {
+    return super.getStore<OrangeStore, void>(OrangeStore);
   }
 }
 
