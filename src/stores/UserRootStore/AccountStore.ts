@@ -14,6 +14,14 @@ class AccountStore {
   public accessAppleStore() {
     return FruitRootStore.getAppleStore().getAccessedFrom(this.name);
   }
+
+  public getOrangeName() {
+    return FruitRootStore.getOrangeStore().name;
+  }
+
+  public getCyclicSelfName() {
+    return FruitRootStore.getOrangeStore().getAccountName();
+  }
 }
 
 export default AccountStore;

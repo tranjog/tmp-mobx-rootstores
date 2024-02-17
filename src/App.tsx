@@ -9,6 +9,7 @@ function App() {
   return (
     <div>
       <p>{accountStore?.accessAppleStore()}</p>
+      <p>{accountStore.getCyclicSelfName()}</p>
       <button
         style={{ background: appleStore.color, padding: 8, color: "white" }}
         onClick={() => {
