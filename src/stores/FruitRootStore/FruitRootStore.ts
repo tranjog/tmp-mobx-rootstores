@@ -3,13 +3,10 @@ import RootStore from "../RootStore";
 import AppleStore, { Color } from "./AppleStore";
 import OrangeStore from "./OrangeStore";
 
-const stores = [AppleStore, OrangeStore];
-type FruitStores = (typeof stores)[number];
-
-class FruitRootStore extends RootStore<FruitStores> {
+class FruitRootStore extends RootStore {
   public name: string;
   constructor() {
-    super(stores);
+    super();
     this.name = "FruitRootStore";
   }
 

@@ -1,9 +1,14 @@
+import { makeObservable, observable } from "mobx";
 import FruitRootStore from "../FruitRootStore/FruitRootStore";
 
 class AccountStore {
-  public name: string;
+  name: string;
   constructor() {
+    makeObservable(this, {
+      name: observable,
+    });
     this.name = "AccountStore";
+    console.log(`init ${this.name}`);
   }
 
   public accessAppleStore() {

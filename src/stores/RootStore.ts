@@ -1,15 +1,11 @@
-abstract class RootStore<Store extends abstract new (...args: any[]) => any> {
-  private stores = new Map<Store, InstanceType<Store>>();
-  constructor(stores: Store[]) {
-    stores.forEach((store) => {
-      this.set(store, store as InstanceType<Store>);
-    });
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Store = InstanceType<abstract new (...args: any) => any>;
 
-  public get<K extends Store, V extends InstanceType<Store>>(
-    key: K
-  ): V | undefined {
-    return this.stores.get(key);
+abstract class RootStore {
+  private stores = new Map<Store, InstanceType<Store>>();
+
+  private get<K extends Store, V extends InstanceType<Store>>(key: K) {
+    return this.stores.get(key) as V | undefined;
   }
 
   private set<K extends Store, V extends InstanceType<Store>>(
@@ -19,12 +15,16 @@ abstract class RootStore<Store extends abstract new (...args: any[]) => any> {
     this.stores.set(key, value);
   }
 
-  protected getStore<T, S>(storeName: Store, initArgs?: S): T {
-    const store = this.get(storeName);
-    if (store?.prototype) {
-      this.set(storeName, new store(initArgs));
+  private has<K extends Store>(key: K): boolean {
+    return this.stores.has(key);
+  }
+
+  protected getStore<T, S = void>(store: Store, initArgs?: S): T {
+    if (!this.has(store)) {
+      this.set(store, new store(initArgs));
     }
-    return this.get(storeName) as T;
+
+    return this.get(store) as T;
   }
 }
 
