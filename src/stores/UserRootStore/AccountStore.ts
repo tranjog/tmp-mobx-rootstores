@@ -1,5 +1,6 @@
 import { makeObservable, observable } from "mobx";
 import FruitRootStore from "../FruitRootStore/FruitRootStore";
+import UserRootStore from "./UserRootStore";
 
 class AccountStore {
   name: string;
@@ -19,8 +20,18 @@ class AccountStore {
     return FruitRootStore.getOrangeStore().name;
   }
 
+  public getOrangeStore() {
+    return FruitRootStore.getOrangeStore();
+  }
+
   public getCyclicSelfName() {
-    return FruitRootStore.getOrangeStore().getAccountName();
+    return FruitRootStore.getOrangeStore().accountName;
+  }
+
+  // This insanity does not produce a cyclical store warning
+  public getQuadCycle() {
+    return UserRootStore.getFriendStore().getOrangeStore().getAccountStore()
+      .name;
   }
 }
 

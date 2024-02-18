@@ -19,11 +19,14 @@ abstract class RootStore {
     return this.stores.has(key);
   }
 
-  protected getStore<T, S extends undefined = undefined>(
+  protected getStore<T, S = undefined>(
     store: Store,
-    initArgs: Array<S> = []
+    initArgs: S | Array<S> = []
   ): T {
     if (!this.has(store)) {
+      if (!Array.isArray(initArgs)) {
+        initArgs = [initArgs];
+      }
       this.set(store, new store(...initArgs));
     }
 

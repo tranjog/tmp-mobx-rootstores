@@ -8,8 +8,8 @@ function App() {
   const appleStore = FruitRootStore.getAppleStore();
   return (
     <div>
-      <p>{accountStore?.accessAppleStore()}</p>
-      <p>{accountStore.getCyclicSelfName()}</p>
+      <p>{accountStore.accessAppleStore()}</p>
+      <p>{accountStore.getQuadCycle()}</p>
       <button
         style={{ background: appleStore.color, padding: 8, color: "white" }}
         onClick={() => {

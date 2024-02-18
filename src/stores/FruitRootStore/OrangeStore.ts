@@ -1,4 +1,4 @@
-import { makeObservable, observable } from "mobx";
+import { computed, makeObservable, observable } from "mobx";
 import UserRootStore from "../UserRootStore/UserRootStore";
 
 class OrangeStore {
@@ -6,11 +6,15 @@ class OrangeStore {
   constructor() {
     makeObservable(this, {
       name: observable,
+      accountName: computed,
     });
     this.name = "OrangeStore";
   }
 
-  public getAccountName() {
+  public getAccountStore() {
+    return UserRootStore.getAccountStore();
+  }
+  public get accountName() {
     return UserRootStore.getAccountStore().name;
   }
 }

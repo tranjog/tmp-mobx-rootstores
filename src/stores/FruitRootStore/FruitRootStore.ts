@@ -1,6 +1,7 @@
 import RootStore from "../RootStore";
 
-import AppleStore, { Color } from "./AppleStore";
+import AppleStore from "./AppleStore";
+import type { Color } from "./AppleStore";
 import OrangeStore from "./OrangeStore";
 
 class FruitRootStore extends RootStore {
@@ -11,11 +12,14 @@ class FruitRootStore extends RootStore {
   }
 
   public getAppleStore() {
-    return super.getStore<AppleStore, Color>(AppleStore, "blue");
+    return super.getStore<AppleStore, [Color, string]>(AppleStore, [
+      "blue",
+      "Apple",
+    ]);
   }
 
   public getOrangeStore() {
-    return super.getStore<OrangeStore, void>(OrangeStore);
+    return super.getStore<OrangeStore>(OrangeStore);
   }
 }
 

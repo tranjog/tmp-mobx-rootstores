@@ -5,12 +5,12 @@ export type Color = "red" | "blue";
 class AppleStore {
   public name: string;
   public color: Color;
-  constructor(color: Color) {
+  constructor(color: Color, name: string) {
     makeObservable(this, {
       color: observable,
       setColor: action,
     });
-    this.name = "AppleStore";
+    this.name = name;
     this.color = color;
     console.log(`init ${this.name}`);
   }

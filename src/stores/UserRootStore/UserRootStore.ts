@@ -1,6 +1,8 @@
 import RootStore from "../RootStore";
 import AccountStore from "./AccountStore";
-import FriendsStore from "./FriendsStore";
+import FriendsStore from "./FriendStore";
+
+import type { Friend } from "./FriendStore";
 
 class UserRootStore extends RootStore {
   constructor() {
@@ -12,8 +14,13 @@ class UserRootStore extends RootStore {
     return super.getStore<AccountStore>(AccountStore);
   }
 
-  public getFriendsStore() {
-    return super.getStore<FriendsStore>(FriendsStore);
+  public getFriendStore(
+    friend: Friend = {
+      age: 99,
+      name: "John",
+    }
+  ) {
+    return super.getStore<FriendsStore, Friend>(FriendsStore, friend);
   }
 }
 
